@@ -115,7 +115,7 @@ export default function Hero() {
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-500/20 to-violet-500/20 blur-2xl animate-pulse-glow" />
               <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 via-violet-500 to-cyan-500 animate-spin-slow opacity-30" />
               <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-white/10 bg-zinc-900">
-                <Image src="/profile.jpg" alt="Muneeb Ur Rehman" fill className="object-cover" priority sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px" />
+                <Image src="/profile.jpeg" alt="Muneeb Ur Rehman" fill className="object-cover" priority sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px" unoptimized />
               </div>
             </div>
           </div>
