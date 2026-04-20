@@ -54,7 +54,7 @@ export default function SectionHeading({ label, title, highlight }: SectionHeadi
         </span>
       </h2>
 
-      <div className="sh-sep mt-4 h-px max-w-xs" style={{ opacity: 0, scaleX: 0 }}>
+      <div className="sh-sep mt-4 h-px max-w-xs" style={{ opacity: 0, transform: 'scaleX(0)' }}>
         <div className="glow-separator" />
       </div>
     </div>
