@@ -17,9 +17,9 @@ export default function ParticleBackground() {
     canvas.height = H;
 
     // ── Theme colors from globals.css ─────────────────────────────────
-    const CYAN = { r: 6, g: 182, b: 212 };      // --accent-cyan: #06b6d4
-    const VIOLET = { r: 139, g: 92, b: 246 };   // --accent-violet: #8b5cf6
-    const BLUE = { r: 59, g: 130, b: 246 };     // --accent-blue: #3b82f6
+    const GOLD = { r: 212, g: 175, b: 55 };       // --gold: #d4af37
+    const BRONZE = { r: 156, g: 122, b: 30 };     // --gold-deep: #9c7a1e
+    const CHAMPAGNE = { r: 243, g: 226, b: 176 }; // --gold-light: #f3e2b0
 
     // ── Neural network nodes ──────────────────────────────────────────
     interface Node {
@@ -60,8 +60,8 @@ export default function ParticleBackground() {
       x: number; y: number; r: number; color: { r: number; g: number; b: number }; vx: number; vy: number;
     }
     const ORBS: Orb[] = [
-      { x: W * 0.15, y: H * 0.25, r: 220, color: CYAN, vx: 0.04, vy: 0.03 },
-      { x: W * 0.85, y: H * 0.75, r: 250, color: VIOLET, vx: -0.03, vy: -0.04 },
+      { x: W * 0.15, y: H * 0.25, r: 220, color: GOLD, vx: 0.04, vy: 0.03 },
+      { x: W * 0.85, y: H * 0.75, r: 250, color: BRONZE, vx: -0.03, vy: -0.04 },
     ];
 
     // ── Mouse interaction ─────────────────────────────────────────────
@@ -77,8 +77,8 @@ export default function ParticleBackground() {
       W = canvas.width;
       H = canvas.height;
 
-      // Fade trail (matches --background: #050508)
-      ctx.fillStyle = "rgba(5,5,8,0.12)";
+      // Fade trail (matches --background: #070706)
+      ctx.fillStyle = "rgba(7,7,6,0.12)";
       ctx.fillRect(0, 0, W, H);
 
       // ── Draw ambient orbs ───────────────────────────────────────────
@@ -106,7 +106,7 @@ export default function ParticleBackground() {
         if (node.y < 0 || node.y > H) node.vy *= -1;
       }
 
-      // ── Draw connections (cyan → blue → violet gradient) ───────────
+      // ── Draw connections (gold → champagne → bronze gradient) ───────────
       for (let i = 0; i < NODES.length; i++) {
         for (let j = i + 1; j < NODES.length; j++) {
           const dx = NODES[i].x - NODES[j].x;
@@ -117,9 +117,9 @@ export default function ParticleBackground() {
             const alpha = (1 - dist / MAX_DIST) * 0.15;
 
             const grad = ctx.createLinearGradient(NODES[i].x, NODES[i].y, NODES[j].x, NODES[j].y);
-            grad.addColorStop(0, `rgba(${CYAN.r},${CYAN.g},${CYAN.b},${alpha})`);
-            grad.addColorStop(0.5, `rgba(${BLUE.r},${BLUE.g},${BLUE.b},${alpha * 0.8})`);
-            grad.addColorStop(1, `rgba(${VIOLET.r},${VIOLET.g},${VIOLET.b},${alpha})`);
+            grad.addColorStop(0, `rgba(${GOLD.r},${GOLD.g},${GOLD.b},${alpha})`);
+            grad.addColorStop(0.5, `rgba(${CHAMPAGNE.r},${CHAMPAGNE.g},${CHAMPAGNE.b},${alpha * 0.8})`);
+            grad.addColorStop(1, `rgba(${BRONZE.r},${BRONZE.g},${BRONZE.b},${alpha})`);
 
             ctx.beginPath();
             ctx.moveTo(NODES[i].x, NODES[i].y);
@@ -131,17 +131,17 @@ export default function ParticleBackground() {
         }
       }
 
-      // ── Draw nodes (cyan theme color) ──────────────────────────────
+      // ── Draw nodes (gold theme color) ──────────────────────────────
       for (const node of NODES) {
         const dx = node.x - mouseX;
         const dy = node.y - mouseY;
         const distToMouse = Math.sqrt(dx * dx + dy * dy);
         const isNear = distToMouse < 150;
 
-        // Glow (matches --accent-cyan)
+        // Glow (matches --gold)
         const glowGrad = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, isNear ? 10 : 6);
-        glowGrad.addColorStop(0, `rgba(${CYAN.r},${CYAN.g},${CYAN.b},${isNear ? 0.25 : 0.12})`);
-        glowGrad.addColorStop(1, `rgba(${CYAN.r},${CYAN.g},${CYAN.b},0)`);
+        glowGrad.addColorStop(0, `rgba(${GOLD.r},${GOLD.g},${GOLD.b},${isNear ? 0.25 : 0.12})`);
+        glowGrad.addColorStop(1, `rgba(${GOLD.r},${GOLD.g},${GOLD.b},0)`);
         ctx.fillStyle = glowGrad;
         ctx.beginPath();
         ctx.arc(node.x, node.y, isNear ? 10 : 6, 0, Math.PI * 2);
@@ -150,11 +150,11 @@ export default function ParticleBackground() {
         // Core dot
         ctx.beginPath();
         ctx.arc(node.x, node.y, isNear ? 2.5 : 1.8, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${CYAN.r},${CYAN.g},${CYAN.b},${isNear ? 0.8 : 0.5})`;
+        ctx.fillStyle = `rgba(${GOLD.r},${GOLD.g},${GOLD.b},${isNear ? 0.8 : 0.5})`;
         ctx.fill();
       }
 
-      // ── Draw floating symbols (violet theme color) ─────────────────
+      // ── Draw floating symbols (bronze theme color) ─────────────────
       ctx.font = "14px 'JetBrains Mono', monospace";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
@@ -164,15 +164,15 @@ export default function ParticleBackground() {
           sym.y = H + 30;
           sym.x = Math.random() * W;
         }
-        ctx.fillStyle = `rgba(${VIOLET.r},${VIOLET.g},${VIOLET.b},${sym.opacity})`;
+        ctx.fillStyle = `rgba(${BRONZE.r},${BRONZE.g},${BRONZE.b},${sym.opacity})`;
         ctx.fillText(sym.char, sym.x, sym.y);
       }
 
-      // ── Mouse cursor glow (cyan theme) ─────────────────────────────
+      // ── Mouse cursor glow (gold theme) ─────────────────────────────
       if (mouseX > 0 && mouseY > 0) {
         const cursorGrad = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 80);
-        cursorGrad.addColorStop(0, `rgba(${CYAN.r},${CYAN.g},${CYAN.b},0.04)`);
-        cursorGrad.addColorStop(1, `rgba(${CYAN.r},${CYAN.g},${CYAN.b},0)`);
+        cursorGrad.addColorStop(0, `rgba(${GOLD.r},${GOLD.g},${GOLD.b},0.04)`);
+        cursorGrad.addColorStop(1, `rgba(${GOLD.r},${GOLD.g},${GOLD.b},0)`);
         ctx.fillStyle = cursorGrad;
         ctx.beginPath();
         ctx.arc(mouseX, mouseY, 80, 0, Math.PI * 2);
@@ -202,23 +202,23 @@ export default function ParticleBackground() {
         style={{ position: "fixed", inset: 0, zIndex: 0, pointerEvents: "none" }}
       />
 
-      {/* Scan line (cyan theme) */}
+      {/* Scan line (gold theme) */}
       <div
         className="scan-line"
         style={{
           position: "fixed", left: 0, right: 0, height: 1,
-          background: "linear-gradient(90deg, transparent, rgba(6,182,212,0.15), transparent)",
+          background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.18), transparent)",
           zIndex: 2, pointerEvents: "none", opacity: 0.6,
         }}
       />
 
-      {/* Grid overlay (cyan theme) */}
+      {/* Grid overlay (gold theme) */}
       <div
         style={{
           position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none",
           backgroundImage:
-            "linear-gradient(rgba(6,182,212,0.015) 1px, transparent 1px)," +
-            "linear-gradient(90deg, rgba(6,182,212,0.015) 1px, transparent 1px)",
+            "linear-gradient(rgba(212,175,55,0.018) 1px, transparent 1px)," +
+            "linear-gradient(90deg, rgba(212,175,55,0.018) 1px, transparent 1px)",
           backgroundSize: "100px 100px",
         }}
       />

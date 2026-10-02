@@ -1,10 +1,25 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ParticleBackground from "./components/ParticleBackground";
+import ScrollProgress from "./components/ScrollProgress";
+import ChatWidget from "./components/ChatWidget";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const jetbrains = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
   display: "swap",
 });
@@ -22,6 +37,8 @@ export const metadata: Metadata = {
     "Python",
     "Deep Learning",
     "NLP",
+    "RAG",
+    "Voice AI",
   ],
   authors: [{ name: "Muneeb Ur Rehman" }],
   openGraph: {
@@ -38,10 +55,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col noise-overlay">
+    <html
+      lang="en"
+      className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">
         <ParticleBackground />
+        <ScrollProgress />
         {children}
+        <ChatWidget />
       </body>
     </html>
   );
