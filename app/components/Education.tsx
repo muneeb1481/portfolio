@@ -2,6 +2,7 @@ import Image from "next/image";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
 import StaggerContainer from "./StaggerContainer";
+import Parallax from "./Parallax";
 import { education, certifications, activities } from "../data/profile";
 
 export default function Education() {
@@ -62,13 +63,15 @@ export default function Education() {
 
             {/* Campus photo */}
             <div className="relative hidden md:block min-h-[20rem] overflow-hidden rounded-r-2xl">
-              <Image
-                src="/photos/fast-entrance.jpeg"
-                alt="Muneeb Ur Rehman at the FAST University Karachi campus entrance"
-                fill
-                sizes="240px"
-                className="object-cover object-[50%_60%]"
-              />
+              <Parallax amount={20} className="absolute -inset-y-5 inset-x-0">
+                <Image
+                  src="/photos/fast-entrance.jpeg"
+                  alt="Muneeb Ur Rehman at the FAST University Karachi campus entrance"
+                  fill
+                  sizes="240px"
+                  className="object-cover object-[50%_60%]"
+                />
+              </Parallax>
               <div className="absolute inset-0 bg-gradient-to-r from-[#0c0b09] via-transparent to-transparent" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>

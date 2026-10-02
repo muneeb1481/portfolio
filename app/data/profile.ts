@@ -9,7 +9,8 @@ export const profile = {
   location: "Karachi, Pakistan",
   availability: "Open to opportunities",
   tagline:
-    "BS Artificial Intelligence student at FAST NUCES building voice agents, RAG pipelines and agentic AI systems that solve real-world problems.",
+    "BS Artificial Intelligence graduate from FAST NUCES building voice agents, RAG pipelines and tested, secure backend APIs that solve real-world problems.",
+  website: "https://muneeb-ur-rehman.dev",
   email: "muneeb.ur.rehm4n@gmail.com",
   phone: "+92-318-2635995",
   phoneHref: "tel:+923182635995",
@@ -20,9 +21,9 @@ export const profile = {
 };
 
 export const highlights = [
-  { label: "CGPA", value: "3.26/4.0" },
+  { label: "CGPA", value: "3.32/4.0" },
   { label: "Focus", value: "AI & ML" },
-  { label: "Year", value: "Senior" },
+  { label: "Graduated", value: "Jun 2026" },
   { label: "Based in", value: "Karachi" },
 ];
 
@@ -51,9 +52,12 @@ export const skillCategories: SkillCategory[] = [
       { name: "OpenAI Embeddings", logo: "openai" },
       { name: "Groq", abbr: "groq" },
       { name: "Voice Agents (Vapi)", abbr: "VAPI" },
+      { name: "LLMs", abbr: "LLM" },
       { name: "RAG", abbr: "RAG" },
       { name: "Agentic AI", abbr: "AI" },
-      { name: "Vector Search", abbr: "VEC" },
+      { name: "LoRA Fine-Tuning", abbr: "LoRA" },
+      { name: "FAISS", abbr: "FAISS" },
+      { name: "pgvector", abbr: "PGV" },
     ],
   },
   {
@@ -61,62 +65,83 @@ export const skillCategories: SkillCategory[] = [
     display: "logos",
     skills: [
       { name: "Python", logo: "python" },
-      { name: "C++", logo: "cplusplus" },
+      { name: "SQL", abbr: "SQL" },
+      { name: "JavaScript", logo: "javascript" },
       { name: "Java", logo: "java" },
+      { name: "C++", logo: "cplusplus" },
       { name: "Bash", logo: "bash" },
       { name: "HTML/CSS", logo: "html5" },
-      { name: "SQL", abbr: "SQL" },
     ],
   },
   {
-    title: "Frameworks",
+    title: "Web & APIs",
+    display: "logos",
+    skills: [
+      { name: "FastAPI", logo: "fastapi" },
+      { name: "Django", logo: "django" },
+      { name: "Django REST Framework", abbr: "DRF" },
+      { name: "Flask", logo: "flask" },
+      { name: "React", logo: "react" },
+      { name: "REST API Design", abbr: "REST" },
+      { name: "Streamlit", logo: "streamlit" },
+    ],
+  },
+  {
+    title: "Databases",
+    display: "logos",
+    skills: [
+      { name: "PostgreSQL", logo: "postgresql" },
+      { name: "MySQL", logo: "mysql" },
+      { name: "SQLite", logo: "sqlite" },
+      { name: "Oracle", logo: "oracle" },
+      { name: "MongoDB", logo: "mongodb" },
+      { name: "SQLAlchemy ORM", logo: "sqlalchemy" },
+      { name: "Django ORM", abbr: "ORM" },
+    ],
+  },
+  {
+    title: "Testing & Tools",
+    display: "logos",
+    skills: [
+      { name: "Unit & Integration Testing", abbr: "TEST" },
+      { name: "Git", logo: "git" },
+      { name: "GitHub Actions", logo: "githubactions" },
+      { name: "Docker", logo: "docker" },
+      { name: "Prometheus", logo: "prometheus" },
+      { name: "Grafana", logo: "grafana" },
+      { name: "Linux", logo: "linux" },
+    ],
+  },
+  {
+    title: "ML Libraries",
     display: "logos",
     skills: [
       { name: "TensorFlow", logo: "tensorflow" },
       { name: "Keras", logo: "keras" },
       { name: "Scikit-Learn", logo: "scikitlearn" },
       { name: "SpaCy", logo: "spacy" },
-      { name: "FastAPI", logo: "fastapi" },
-      { name: "Django", logo: "django" },
-      { name: "Flask", logo: "flask" },
-      { name: "Streamlit", logo: "streamlit" },
       { name: "NLTK", abbr: "NLTK" },
     ],
   },
   {
-    title: "Tools",
-    display: "logos",
+    title: "Security",
+    display: "badges",
     skills: [
-      { name: "Git", logo: "git" },
-      { name: "PostgreSQL", logo: "postgresql" },
-      { name: "MySQL", logo: "mysql" },
-      { name: "SQLite", logo: "sqlite" },
-      { name: "MongoDB", logo: "mongodb" },
-      { name: "Oracle", logo: "oracle" },
-      { name: "Prometheus", logo: "prometheus" },
-      { name: "Grafana", logo: "grafana" },
-      { name: "FAISS", abbr: "FAISS" },
-      { name: "pgvector", abbr: "PGV" },
-    ],
-  },
-  {
-    title: "Platforms",
-    display: "logos",
-    skills: [
-      { name: "Linux", logo: "linux" },
-      { name: "Windows", logo: "windows" },
-      { name: "Docker", logo: "docker" },
-      { name: "GitHub Actions", logo: "githubactions" },
-      { name: "Web", abbr: "WEB" },
+      { name: "JWT" },
+      { name: "bcrypt" },
+      { name: "API Authentication" },
+      { name: "Input Validation" },
+      { name: "Role Based Access Control" },
     ],
   },
   {
     title: "Soft Skills",
     display: "badges",
     skills: [
+      { name: "Fast Learner" },
+      { name: "Attention to Detail" },
+      { name: "Communication" },
       { name: "Leadership" },
-      { name: "Event Management" },
-      { name: "Technical Writing" },
       { name: "Time Management" },
     ],
   },
@@ -126,9 +151,9 @@ export const education = {
   university: "FAST National University (NUCES)",
   degree: "Bachelor of Science — Artificial Intelligence",
   location: "Karachi, Pakistan",
-  gpa: "3.26/4.0",
-  period: "Aug 2022 — Aug 2026",
-  honor: "Dean's List — 3.51 SGPA (2nd Semester)",
+  gpa: "3.32/4.0",
+  period: "Aug 2022 — Jun 2026",
+  honor: "Dean's List — 8th Semester (3.71 SGPA) and 2nd Semester (3.51 SGPA)",
   courses: [
     "Operating Systems",
     "Data Structures",
@@ -155,27 +180,11 @@ export const certifications = [
 export const activities = [
   {
     title: "Microsoft Learn Student Ambassadors (MLSA)",
-    detail: "FAST Karachi Chapter — Event management and community involvement",
+    detail: "Member, FAST Karachi Chapter — Assisted with event management",
   },
 ];
 
 export const experiences = [
-  {
-    title: "Agentic AI Intern",
-    company: "Wellness Innovations",
-    type: "Remote",
-    period: "May 2025 — June 2025",
-    points: [
-      {
-        title: "Automated Database Agent",
-        desc: "Developed a fully automated database agent powered by large language models (LLMs) for seamless data interaction.",
-      },
-      {
-        title: "Reflection Agent with LangGraph",
-        desc: "Implemented a reflection agent using LangGraph's agentic workflow to enhance adaptability and self-improvement in AI systems.",
-      },
-    ],
-  },
   {
     title: "Teaching Assistant",
     company: "FAST NUCES",
@@ -187,12 +196,28 @@ export const experiences = [
         desc: "Programming Fundamentals, Computer Organization and Assembly Language, Artificial Intelligence.",
       },
       {
-        title: "Student Assessments",
-        desc: "Reviewed and graded student assessments, ensuring fairness and academic standards across courses.",
+        title: "Code Review and Debugging",
+        desc: "Reviewed and graded student code for these courses and gave feedback on bugs, logic errors, and code quality.",
       },
       {
         title: "Project Evaluations",
-        desc: "Evaluated programming, systems-level, and AI projects, providing constructive feedback to strengthen problem-solving and technical understanding.",
+        desc: "Evaluated programming, systems-level, and AI projects and gave written feedback on correctness and code structure.",
+      },
+    ],
+  },
+  {
+    title: "Agentic AI Intern",
+    company: "Wellness Innovations",
+    type: "Remote",
+    period: "May 2025 — Jun 2025",
+    points: [
+      {
+        title: "Automated Database Agent",
+        desc: "Built an LLM-powered agent that answers plain English questions by querying the company database.",
+      },
+      {
+        title: "Reflection Agent",
+        desc: "Implemented a reflection agent with LangGraph that reviews and corrects its own output before it responds.",
       },
     ],
   },
@@ -203,7 +228,8 @@ export interface Project {
   description: string;
   language: string;
   topics: string[];
-  url: string;
+  // Projects without a public repository have no link.
+  url?: string;
   featured?: boolean;
   highlights?: string[];
 }
@@ -212,44 +238,74 @@ export const projects: Project[] = [
   {
     name: "Detail Ops — Voice AI Booking Agent",
     description:
-      "Phone-based AI agent for a car detailing business. It answers customer questions from uploaded documents through a RAG engine and books, reschedules or cancels appointments, with an admin dashboard for the knowledge base and calendar.",
+      "Production appointment booking system for a car detailing business, built on a FastAPI backend and PostgreSQL. A phone-based AI agent answers customer questions from uploaded documents through a RAG engine and books, reschedules or cancels appointments, with an admin dashboard for the knowledge base and calendar.",
     language: "Python",
-    topics: ["Voice AI", "RAG", "FastAPI", "pgvector", "Vapi", "React"],
+    topics: ["Voice AI", "RAG", "FastAPI", "PostgreSQL", "SQLAlchemy", "pgvector", "Vapi", "React"],
     url: "https://github.com/Muneeb1481/Voice-AI-Agent-Detailing-Booking-RAG",
     featured: true,
     highlights: [
+      "JWT authentication, bcrypt password hashing and signed webhook requests",
+      "Booking validation, per-market data isolation and SQLAlchemy ORM to block SQL injection",
       "Answers only from retrieved context and refuses to guess on pricing",
-      "One shared booking path for voice calls and the dashboard",
-      "27 tests across auth, chunking, booking and RAG",
+      "27 unit tests cover the booking logic",
     ],
   },
   {
-    name: "Voice AI Patient Registration Agent",
+    name: "Voice AI Patient Registration System",
     description:
-      "Phone-callable voice agent that registers new patients through natural conversation, validates every field, stores records in a database and exposes them over a REST API with a live dashboard.",
+      "REST API and web dashboard that registers new patients over a phone call. The voice agent collects details through natural conversation, validates every field and stores the records in a database.",
     language: "Python",
-    topics: ["Voice AI", "Vapi", "Groq", "FastAPI", "SQLite"],
+    topics: ["Voice AI", "FastAPI", "SQLite", "Pydantic", "GitHub Actions", "Vapi", "Groq"],
     url: "https://github.com/Muneeb1481/Voice-AI-Agent-Patient-Registration-System",
     featured: true,
     highlights: [
+      "Phone agent and public API share one validation layer and one repository module, so moving to PostgreSQL changes a single file",
       "Detects returning callers by phone number and offers updates",
-      "Appointment scheduling with call transcripts linked to each patient",
-      "16 integration tests covering the API, webhook, booking and dashboard",
+      "16 integration tests cover the API, webhook and booking flow",
     ],
   },
   {
     name: "Fuel Route Optimizer",
     description:
-      "Django REST API that plans driving routes across the USA and picks the cheapest fuel stops along the way for a 500-mile-range vehicle, shown on an interactive Leaflet map.",
+      "Django REST API that returns a US driving route with the cheapest fuel stops along the way for a 500-mile-range vehicle, shown on an interactive Leaflet map.",
     language: "Python",
-    topics: ["Django REST", "OSRM", "GraphHopper", "Leaflet", "Geospatial"],
+    topics: ["Django REST Framework", "SQLite", "Leaflet.js", "OSRM", "GraphHopper", "Geospatial"],
     url: "https://github.com/Muneeb1481/fuel-route-optimizer",
     featured: true,
     highlights: [
-      "7,500+ fuel stations geocoded offline",
-      "Only 3 external API calls per request",
+      "7,500+ fuel stations loaded and queried with bounding box and Haversine filters",
+      "Only 3 external API calls per request, and cached geocoding skips repeat lookups",
       "25 unit and integration tests",
     ],
+  },
+  {
+    name: "Semantic Automated Program Repair (FYP)",
+    description:
+      "Final year project supervised by Dr. Muhammad Rafi. Fine-tuned CodeLLaMA 7B with PEFT LoRA to find and repair software bugs, trained on a bug-fix dataset I built for it.",
+    language: "Python",
+    topics: ["CodeLLaMA", "LoRA", "PEFT", "Fine-Tuning", "Python"],
+    url: "https://github.com/Muneeb1481/APR-DATASET-Creation",
+    featured: true,
+    highlights: [
+      "Fine-tuned CodeLLaMA 7B with PEFT LoRA",
+      "Built the bug-fix dataset by mining GitHub repositories for buggy/fixed Python code pairs",
+      "Inference pipeline validates input to stop malicious code from executing",
+    ],
+  },
+  {
+    name: "DevOps Monitoring Dashboard",
+    description:
+      "Flask, Prometheus and Grafana dashboard that tracks application health and CI/CD metrics in real time. Includes rate limiting, API key authentication and automated tests that run through GitHub Actions.",
+    language: "Python",
+    topics: ["Flask", "Prometheus", "Grafana", "GitHub Actions"],
+    url: "https://github.com/Muneeb1481/devops-dashboard-main",
+  },
+  {
+    name: "Gym Management System",
+    description:
+      "Django web application for memberships, admissions and fee collection, with full CRUD, payment tracking, role based access control and a dashboard of weekly, monthly and yearly sales.",
+    language: "Python",
+    topics: ["Django", "SQLite", "Tailwind CSS", "JavaScript"],
   },
   {
     name: "Resume–Job Matching AI",
@@ -266,22 +322,6 @@ export const projects: Project[] = [
     language: "Python",
     topics: ["RAG", "LLaMA 2", "LangChain"],
     url: "https://github.com/Muneeb1481/Chat-with-your-document-LLAMA2-LangChain-master",
-  },
-  {
-    name: "DevOps Monitoring Dashboard",
-    description:
-      "Production-grade observability stack with Flask, Prometheus, Grafana, and Pushgateway. Collects 30+ real-time metrics every 5 seconds across 4 professional dashboards covering CI/CD, app health, and system performance.",
-    language: "Python",
-    topics: ["DevOps", "Prometheus", "Grafana"],
-    url: "https://github.com/Muneeb1481/devops-dashboard-main",
-  },
-  {
-    name: "APR Dataset Builder",
-    description:
-      "Automated pipeline that mines GitHub repositories to build structured datasets of buggy/fixed Python code pairs for training Automated Program Repair models. Resumable, incremental, and RepairLLaMA-compatible.",
-    language: "Python",
-    topics: ["GitHub API", "Data Pipeline", "APR"],
-    url: "https://github.com/Muneeb1481/APR-DATASET-Creation",
   },
   {
     name: "Hybrid Movie Recommender",

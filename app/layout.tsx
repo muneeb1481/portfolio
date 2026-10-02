@@ -4,6 +4,7 @@ import "./globals.css";
 import ParticleBackground from "./components/ParticleBackground";
 import ScrollProgress from "./components/ScrollProgress";
 import ChatWidget from "./components/ChatWidget";
+import Loader from "./components/Loader";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -27,7 +28,7 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Muneeb Ur Rehman — AI & Machine Learning Engineer",
   description:
-    "Portfolio of Muneeb Ur Rehman — CS-AI undergraduate at FAST NUCES specializing in Machine Learning, NLP, and Agentic AI. Building intelligent systems that solve real-world problems.",
+    "Portfolio of Muneeb Ur Rehman — BS Artificial Intelligence graduate from FAST NUCES specializing in Machine Learning, NLP, and Agentic AI. Building intelligent systems that solve real-world problems.",
   keywords: [
     "Muneeb Ur Rehman",
     "AI Engineer",
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Muneeb Ur Rehman — AI & Machine Learning Engineer",
     description:
-      "CS-AI undergraduate building intelligent systems with cutting-edge AI technologies.",
+      "BS Artificial Intelligence graduate building intelligent systems with cutting-edge AI technologies.",
     type: "website",
   },
 };
@@ -60,6 +61,7 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable} ${jetbrains.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <Loader />
         <ParticleBackground />
         <ScrollProgress />
         {children}

@@ -1,6 +1,7 @@
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
 import AskAIButton from "./AskAIButton";
+import Magnetic from "./Magnetic";
 import { GitHubIcon, LinkedInIcon, MailIcon, PhoneIcon } from "./Icons";
 import { profile } from "../data/profile";
 
@@ -92,15 +93,19 @@ export default function Contact() {
                 I&apos;d love to hear from you.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="btn-gold px-6 py-3 text-sm"
-                  id="contact-cta"
-                >
-                  <MailIcon className="w-4 h-4" />
-                  Send me an Email
-                </a>
-                <AskAIButton className="btn-outline px-6 py-3 text-sm" label="Ask my AI first" />
+                <Magnetic>
+                  <a
+                    href={`mailto:${profile.email}`}
+                    className="btn-gold px-6 py-3 text-sm"
+                    id="contact-cta"
+                  >
+                    <MailIcon className="w-4 h-4" />
+                    Send me an Email
+                  </a>
+                </Magnetic>
+                <Magnetic>
+                  <AskAIButton className="btn-outline px-6 py-3 text-sm" label="Ask my AI first" />
+                </Magnetic>
               </div>
             </div>
           </AnimatedSection>

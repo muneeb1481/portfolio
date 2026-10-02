@@ -10,7 +10,7 @@ interface AnimatedSectionProps {
   children: ReactNode;
   className?: string;
   delay?: number;
-  direction?: "up" | "left" | "right" | "scale";
+  direction?: "up" | "left" | "right" | "scale" | "flip";
   threshold?: number;
 }
 
@@ -31,11 +31,13 @@ export default function AnimatedSection({
     if (direction === "left")  { fromVars.x = -40; }
     if (direction === "right") { fromVars.x = 40; }
     if (direction === "scale") { fromVars.scale = 0.92; fromVars.y = 20; }
+    // 3D reveal: the card swings up from a backward lean.
+    if (direction === "flip")  { fromVars.rotationX = -24; fromVars.y = 50; fromVars.transformPerspective = 900; fromVars.transformOrigin = "50% 0%"; }
 
     const ctx = gsap.context(() => {
       gsap.fromTo(el, fromVars, {
-        opacity: 1, x: 0, y: 0, scale: 1,
-        duration: 0.75,
+        opacity: 1, x: 0, y: 0, scale: 1, rotationX: 0,
+        duration: direction === "flip" ? 0.95 : 0.75,
         delay: delay / 1000,
         ease: "power3.out",
         scrollTrigger: {

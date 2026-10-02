@@ -1,6 +1,8 @@
 import Image from "next/image";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
+import Tilt from "./Tilt";
+import Parallax from "./Parallax";
 import { highlights } from "../data/profile";
 
 const campusPhotos = [
@@ -28,18 +30,22 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-16 items-start">
           {/* Portrait */}
           <AnimatedSection direction="left">
-            <div className="photo-frame rounded-3xl w-60 sm:w-72 mx-auto lg:mx-0">
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-gold-400/25 bg-stone-900">
-                <Image
-                  src="/photos/about.jpeg"
-                  alt="Muneeb Ur Rehman smiling, wearing glasses and a navy suit"
-                  fill
-                  sizes="(max-width: 640px) 240px, 288px"
-                  className="object-cover object-top transition-transform duration-700 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+            <Tilt className="w-60 sm:w-72 mx-auto lg:mx-0" radius="1.5rem">
+              <div className="photo-frame rounded-3xl">
+                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-gold-400/25 bg-stone-900">
+                  <Parallax amount={20} className="absolute -inset-y-5 inset-x-0">
+                    <Image
+                      src="/photos/about.jpeg"
+                      alt="Muneeb Ur Rehman smiling, wearing glasses and a navy suit"
+                      fill
+                      sizes="(max-width: 640px) 240px, 288px"
+                      className="object-cover object-top transition-transform duration-700 hover:scale-105"
+                    />
+                  </Parallax>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                </div>
               </div>
-            </div>
+            </Tilt>
           </AnimatedSection>
 
           <div>
@@ -47,8 +53,8 @@ export default function About() {
             <AnimatedSection delay={100}>
               <div className="space-y-5 text-stone-400 leading-relaxed text-base sm:text-lg">
                 <p>
-                  I&apos;m a passionate{" "}
-                  <span className="text-stone-100 font-medium text-highlight">Artificial Intelligence</span> student at
+                  I&apos;m an{" "}
+                  <span className="text-stone-100 font-medium text-highlight">Artificial Intelligence</span> graduate from
                   FAST NUCES, Karachi. My journey in tech revolves around
                   building intelligent systems that bridge the gap between theoretical AI
                   and real-world applications.
@@ -88,20 +94,20 @@ export default function About() {
         {/* Photo strip */}
         <AnimatedSection delay={150}>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16">
-            {campusPhotos.map((photo) => (
-              <div
-                key={photo.src}
-                className="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-gold-500/15 bg-stone-900"
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(max-width: 640px) 45vw, 260px"
-                  className="object-cover grayscale-[55%] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent transition-opacity duration-500 group-hover:opacity-40 pointer-events-none" />
-              </div>
+            {campusPhotos.map((photo, idx) => (
+              // Neighbouring photos drift in opposite directions on scroll
+              <Parallax key={photo.src} amount={idx % 2 === 0 ? 12 : -12}>
+                <div className="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-gold-500/15 bg-stone-900">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 640px) 45vw, 260px"
+                    className="object-cover grayscale-[55%] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent transition-opacity duration-500 group-hover:opacity-40 pointer-events-none" />
+                </div>
+              </Parallax>
             ))}
           </div>
           <p className="eyebrow text-[0.62rem] text-stone-500 mt-4 text-center">

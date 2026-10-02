@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
 import { openChat } from "../lib/chatEvents";
+import { onLoaderDone } from "../lib/loader";
 import { SparkIcon } from "./Icons";
 
 const navLinks = [
@@ -22,18 +23,23 @@ export default function Navbar() {
   const linksRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // GSAP entrance
+    // GSAP entrance, held until the intro loader lifts
+    let offLoader = () => {};
     const ctx = gsap.context(() => {
-      gsap.fromTo(navRef.current,
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(navRef.current,
         { opacity: 0, y: -20 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.2 }
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+        0.2
       );
       if (linksRef.current) {
-        gsap.fromTo(linksRef.current.children,
+        tl.fromTo(linksRef.current.children,
           { opacity: 0, y: -10 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, ease: "power2.out", delay: 0.5 }
+          { opacity: 1, y: 0, duration: 0.5, stagger: 0.07, ease: "power2.out" },
+          0.5
         );
       }
+      offLoader = onLoaderDone(() => tl.play());
     });
 
     const handleScroll = () => {
@@ -52,6 +58,7 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => {
+      offLoader();
       ctx.revert();
       window.removeEventListener("scroll", handleScroll);
     };

@@ -27,7 +27,8 @@ export function buildSystemPrompt(): string {
   const projectList = projects
     .map((p) => {
       const extra = p.highlights ? ` Highlights: ${p.highlights.join("; ")}.` : "";
-      return `- ${p.name}${p.featured ? " (featured)" : ""}: ${p.description}${extra} Tech: ${p.topics.join(", ")}. Repo: ${p.url}`;
+      const repo = p.url ? ` Repo: ${p.url}` : " No public repo.";
+      return `- ${p.name}${p.featured ? " (featured)" : ""}: ${p.description}${extra} Tech: ${p.topics.join(", ")}.${repo}`;
     })
     .join("\n");
 
@@ -54,6 +55,7 @@ Contact
 - Phone: ${profile.phone}
 - LinkedIn: ${profile.linkedin}
 - GitHub: ${profile.github}
+- Website: ${profile.website}
 
 Education
 - ${education.degree}, ${education.university}, ${education.location} (${education.period}), CGPA ${education.gpa}

@@ -6,6 +6,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { profile, projects } from "../data/profile";
 import { openChat } from "../lib/chatEvents";
+import { onLoaderDone } from "../lib/loader";
+import Magnetic from "./Magnetic";
 import { ArrowRightIcon, GitHubIcon, LinkedInIcon, MailIcon, SparkIcon } from "./Icons";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -20,6 +22,9 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const section = containerRef.current;
+    let offLoader = () => {};
+
     const ctx = gsap.context(() => {
       // Orb floating animations
       gsap.to(".hero-orb-1", {
@@ -31,12 +36,27 @@ export default function Hero() {
         duration: 10, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 2,
       });
 
-      // Entrance timeline
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      // Entrance timeline, held until the intro loader lifts.
+      // The floating badges sit in front of the photo (z) so they separate when it tilts.
+      const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
       tl.fromTo(".hero-reveal", { opacity: 0, y: 32 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.11 })
         .fromTo(".hero-image", { opacity: 0, scale: 0.9, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: "power4.out" }, 0.25)
-        .fromTo(".hero-float", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.15 }, "-=0.4")
+        .fromTo(".hero-float", { opacity: 0, y: 14, z: 60 }, { opacity: 1, y: 0, z: 60, duration: 0.6, stagger: 0.15 }, "-=0.4")
         .fromTo(".hero-scroll", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.6 }, "-=0.2");
+
+      // Count the project number up as its badge appears
+      const countEl = section?.querySelector(".hero-count");
+      const count = { value: 0 };
+      tl.to(count, {
+        value: projects.length,
+        duration: 1.1,
+        ease: "power2.out",
+        onUpdate: () => {
+          if (countEl) countEl.textContent = String(Math.round(count.value));
+        },
+      }, "-=0.9");
+
+      offLoader = onLoaderDone(() => tl.play());
 
       // Scroll dot bounce
       gsap.to(".scroll-dot", {
@@ -54,7 +74,38 @@ export default function Hero() {
       });
     }, containerRef);
 
-    return () => ctx.revert();
+    // 3D motion: the photo leans toward the cursor anywhere over the hero
+    const mm = gsap.matchMedia();
+    mm.add("(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
+      const tilt = section?.querySelector(".hero-tilt");
+      if (!section || !tilt) return;
+
+      const rotateX = gsap.quickTo(tilt, "rotationX", { duration: 0.9, ease: "power3.out" });
+      const rotateY = gsap.quickTo(tilt, "rotationY", { duration: 0.9, ease: "power3.out" });
+
+      const onMove = (event: PointerEvent) => {
+        const rect = section.getBoundingClientRect();
+        rotateY(((event.clientX - rect.left) / rect.width - 0.5) * 16);
+        rotateX((0.5 - (event.clientY - rect.top) / rect.height) * 12);
+      };
+      const onLeave = () => {
+        rotateX(0);
+        rotateY(0);
+      };
+
+      section.addEventListener("pointermove", onMove);
+      section.addEventListener("pointerleave", onLeave);
+      return () => {
+        section.removeEventListener("pointermove", onMove);
+        section.removeEventListener("pointerleave", onLeave);
+      };
+    });
+
+    return () => {
+      offLoader();
+      mm.revert();
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -119,27 +170,35 @@ export default function Hero() {
             </div>
 
             <div className="hero-reveal hero-links flex flex-wrap items-center gap-3 pt-2" style={{ opacity: 0 }}>
-              <a href="#projects" className="btn-outline px-5 py-3 text-sm">
-                View projects
-                <ArrowRightIcon className="w-4 h-4" />
-              </a>
-              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                className="btn-outline w-11 h-11">
-                <LinkedInIcon className="w-[18px] h-[18px]" />
-              </a>
-              <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-                className="btn-outline w-11 h-11">
-                <GitHubIcon className="w-[18px] h-[18px]" />
-              </a>
-              <a href={`mailto:${profile.email}`} aria-label="Email"
-                className="btn-outline w-11 h-11">
-                <MailIcon className="w-[18px] h-[18px]" />
-              </a>
+              <Magnetic>
+                <a href="#projects" className="btn-outline px-5 py-3 text-sm">
+                  View projects
+                  <ArrowRightIcon className="w-4 h-4" />
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+                  className="btn-outline w-11 h-11">
+                  <LinkedInIcon className="w-[18px] h-[18px]" />
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+                  className="btn-outline w-11 h-11">
+                  <GitHubIcon className="w-[18px] h-[18px]" />
+                </a>
+              </Magnetic>
+              <Magnetic>
+                <a href={`mailto:${profile.email}`} aria-label="Email"
+                  className="btn-outline w-11 h-11">
+                  <MailIcon className="w-[18px] h-[18px]" />
+                </a>
+              </Magnetic>
             </div>
           </div>
 
-          <div className="hero-image relative" style={{ opacity: 0 }}>
-            <div className="relative w-64 sm:w-72 lg:w-[22rem] mx-auto">
+          <div className="hero-image relative" style={{ opacity: 0, perspective: "1100px" }}>
+            <div className="hero-tilt relative w-64 sm:w-72 lg:w-[22rem] mx-auto" style={{ transformStyle: "preserve-3d" }}>
               <div className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-br from-gold-400/20 via-transparent to-gold-700/20 blur-3xl" />
               <div className="photo-frame rounded-[2rem]">
                 <div className="relative aspect-[3/4] rounded-[2rem] overflow-hidden border border-gold-400/30 bg-stone-900">
@@ -164,7 +223,7 @@ export default function Hero() {
                 <span className="text-xs font-medium text-stone-200">Voice AI · RAG · Agents</span>
               </div>
               <div className="hero-float hidden sm:block absolute -right-8 bottom-24 px-3.5 py-2 rounded-xl bg-[rgba(12,11,9,0.9)] border border-gold-500/25 backdrop-blur-md shadow-xl shadow-black/50 text-left" style={{ opacity: 0 }}>
-                <p className="text-lg font-bold gradient-text leading-none">{projects.length}</p>
+                <p className="hero-count text-lg font-bold gradient-text leading-none">{projects.length}</p>
                 <p className="mt-1 text-[10px] uppercase tracking-widest text-stone-400">Projects built</p>
               </div>
             </div>
