@@ -1,52 +1,6 @@
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
-
-const experiences = [
-  {
-    title: "Agentic AI Intern",
-    company: "Wellness Innovations",
-    type: "Remote",
-    period: "May 2025 — June 2025",
-    color: "from-violet-500/20 to-violet-500/5",
-    borderColor: "border-violet-500/20",
-    dotColor: "bg-violet-500",
-    icon: "🤖",
-    points: [
-      {
-        title: "Automated Database Agent",
-        desc: "Developed a fully automated database agent powered by large language models (LLMs) for seamless data interaction.",
-      },
-      {
-        title: "Reflection Agent with LangGraph",
-        desc: "Implemented a reflection agent using LangGraph's agentic workflow to enhance adaptability and self-improvement in AI systems.",
-      },
-    ],
-  },
-  {
-    title: "Teaching Assistant",
-    company: "FAST NUCES",
-    type: "Karachi, Pakistan",
-    period: "Jan 2025 — Dec 2025",
-    color: "from-cyan-500/20 to-cyan-500/5",
-    borderColor: "border-cyan-500/20",
-    dotColor: "bg-cyan-500",
-    icon: "📚",
-    points: [
-      {
-        title: "Courses",
-        desc: "Programming Fundamentals, Computer Organization and Assembly Language, Artificial Intelligence.",
-      },
-      {
-        title: "Student Assessments",
-        desc: "Reviewed and graded student assessments, ensuring fairness and academic standards across courses.",
-      },
-      {
-        title: "Project Evaluations",
-        desc: "Evaluated programming, systems-level, and AI projects, providing constructive feedback to strengthen problem-solving and technical understanding.",
-      },
-    ],
-  },
-];
+import { experiences } from "../data/profile";
 
 export default function Experience() {
   return (
@@ -74,45 +28,40 @@ export default function Experience() {
               <AnimatedSection key={exp.title + exp.company} delay={idx * 200} direction="left">
                 <div className="relative">
                   {/* Timeline dot */}
-                  <div className="absolute -left-8 sm:-left-10 top-6 w-3 h-3 rounded-full bg-gradient-to-br from-cyan-500 to-violet-500 shadow-[0_0_12px_rgba(6,182,212,0.4)] z-10 ring-4 ring-[#050508]" />
+                  <div className="absolute -left-[23px] sm:-left-[27px] top-7 w-3 h-3 rounded-full bg-gradient-to-br from-gold-200 to-gold-600 shadow-[0_0_14px_rgba(212,175,55,0.55)] z-10 ring-4 ring-[#0c0b09]" />
 
                   <div className="gradient-border p-6 sm:p-8 card-hover card-shine">
                     {/* Header */}
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-5">
                       <div className="flex items-start gap-4">
-                        <div
-                          className={`p-3 rounded-xl bg-gradient-to-br ${exp.color} border ${exp.borderColor} flex-shrink-0`}
-                        >
-                          <span className="text-xl">{exp.icon}</span>
-                        </div>
+                        <span className="font-display italic text-3xl gradient-text leading-none pt-1 flex-shrink-0">
+                          {String(idx + 1).padStart(2, "0")}
+                        </span>
                         <div>
-                          <h3 className="text-xl font-bold text-zinc-100">
+                          <h3 className="text-xl font-bold text-stone-100">
                             {exp.title}
                           </h3>
-                          <p className="text-sm text-zinc-400 mt-0.5">
+                          <p className="text-sm text-gold-300 mt-0.5">
                             {exp.company}{" "}
-                            <span className="text-zinc-600">• {exp.type}</span>
+                            <span className="text-stone-500">• {exp.type}</span>
                           </p>
                         </div>
                       </div>
-                      <span className="text-sm text-zinc-500 flex-shrink-0 font-medium px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                      <span className="self-start font-mono text-xs text-stone-400 flex-shrink-0 px-3 py-1.5 rounded-full bg-white/[0.03] border border-gold-500/15">
                         {exp.period}
                       </span>
                     </div>
 
                     {/* Points */}
                     <div className="space-y-4 pl-2">
-                      {exp.points.map((point, pIdx) => (
+                      {exp.points.map((point) => (
                         <div key={point.title} className="flex items-start gap-3 group">
-                          <div
-                            className={`w-2 h-2 rounded-full ${exp.dotColor} mt-2 flex-shrink-0 opacity-60 group-hover:opacity-100 group-hover:shadow-[0_0_8px] transition-all duration-300`}
-                            style={{ animationDelay: `${pIdx * 0.1}s` }}
-                          />
+                          <div className="w-1.5 h-1.5 rotate-45 bg-gold-500 mt-2 flex-shrink-0 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
                           <div>
-                            <span className="text-sm font-semibold text-zinc-200 text-highlight">
+                            <span className="text-sm font-semibold text-stone-200 text-highlight">
                               {point.title}:
                             </span>{" "}
-                            <span className="text-sm text-zinc-400">
+                            <span className="text-sm text-stone-400">
                               {point.desc}
                             </span>
                           </div>

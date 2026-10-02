@@ -1,11 +1,15 @@
+import Image from "next/image";
 import AnimatedSection from "./AnimatedSection";
 import SectionHeading from "./SectionHeading";
+import Tilt from "./Tilt";
+import Parallax from "./Parallax";
+import { highlights } from "../data/profile";
 
-const highlights = [
-  { label: "GPA", value: "3.26/4.0", icon: "🎓" },
-  { label: "Focus", value: "AI & ML", icon: "🤖" },
-  { label: "Year", value: "Senior", icon: "📅" },
-  { label: "Location", value: "Karachi", icon: "📍" },
+const campusPhotos = [
+  { src: "/photos/campus-1.jpeg", alt: "Muneeb Ur Rehman in a navy suit, side profile" },
+  { src: "/photos/campus-2.jpeg", alt: "Muneeb Ur Rehman standing by a fountain" },
+  { src: "/photos/campus-3.jpeg", alt: "Muneeb Ur Rehman leaning on a railing" },
+  { src: "/photos/campus-4.jpeg", alt: "Muneeb Ur Rehman on the FAST NUCES campus" },
 ];
 
 export default function About() {
@@ -23,54 +27,93 @@ export default function About() {
           highlight="One Model at a Time"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start">
-          {/* Text Content */}
-          <AnimatedSection delay={100}>
-            <div className="space-y-5 text-zinc-400 leading-relaxed text-base sm:text-lg">
-              <p>
-                I&apos;m a passionate {" "}
-                <span className="text-zinc-200 font-medium text-highlight">Artificial Intelligence</span> student at
-                FAST NUCES, Karachi. My journey in tech revolves around
-                building intelligent systems that bridge the gap between theoretical AI
-                and real-world applications.
-              </p>
-              <p>
-                From developing{" "}
-                <span className="text-cyan-400 font-medium text-highlight">hybrid resume-job matching systems</span>{" "}
-                using LLMs to creating{" "}
-                <span className="text-violet-400 font-medium text-highlight">agentic AI workflows</span>{" "}
-                with LangGraph, I thrive on pushing the boundaries of what&apos;s possible
-                with machine learning and natural language processing.
-              </p>
-              <p>
-                As a Teaching Assistant, I&apos;ve had the privilege of mentoring students
-                across courses ranging from Programming Fundamentals to Artificial Intelligence,
-                deepening my own understanding while helping others grow.
-              </p>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-16 items-start">
+          {/* Portrait */}
+          <AnimatedSection direction="left">
+            <Tilt className="w-60 sm:w-72 mx-auto lg:mx-0" radius="1.5rem">
+              <div className="photo-frame rounded-3xl">
+                <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-gold-400/25 bg-stone-900">
+                  <Parallax amount={20} className="absolute -inset-y-5 inset-x-0">
+                    <Image
+                      src="/photos/about.jpeg"
+                      alt="Muneeb Ur Rehman smiling, wearing glasses and a navy suit"
+                      fill
+                      sizes="(max-width: 640px) 240px, 288px"
+                      className="object-cover object-top transition-transform duration-700 hover:scale-105"
+                    />
+                  </Parallax>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                </div>
+              </div>
+            </Tilt>
           </AnimatedSection>
 
-          {/* Highlight Cards */}
-          <AnimatedSection delay={200} direction="right">
-            <div className="grid grid-cols-2 gap-3 min-w-[240px]">
-              {highlights.map((item, idx) => (
-                <div
-                  key={item.label}
-                  className="gradient-border p-4 text-center card-hover card-shine"
-                  style={{ animationDelay: `${idx * 0.1}s` }}
-                >
-                  <span className="text-2xl mb-2 block">{item.icon}</span>
-                  <div className="text-lg font-bold text-zinc-100">
-                    {item.value}
+          <div>
+            {/* Text Content */}
+            <AnimatedSection delay={100}>
+              <div className="space-y-5 text-stone-400 leading-relaxed text-base sm:text-lg">
+                <p>
+                  I&apos;m an{" "}
+                  <span className="text-stone-100 font-medium text-highlight">Artificial Intelligence</span> graduate from
+                  FAST NUCES, Karachi. My journey in tech revolves around
+                  building intelligent systems that bridge the gap between theoretical AI
+                  and real-world applications.
+                </p>
+                <p>
+                  From building{" "}
+                  <span className="text-gold-300 font-medium text-highlight">voice AI agents</span>{" "}
+                  that book appointments over the phone, to{" "}
+                  <span className="text-gold-300 font-medium text-highlight">RAG systems</span>{" "}
+                  and{" "}
+                  <span className="text-gold-300 font-medium text-highlight">agentic AI workflows</span>{" "}
+                  with LangGraph, I thrive on pushing the boundaries of what&apos;s possible
+                  with machine learning and natural language processing.
+                </p>
+                <p>
+                  As a Teaching Assistant, I&apos;ve had the privilege of mentoring students
+                  across courses ranging from Programming Fundamentals to Artificial Intelligence,
+                  deepening my own understanding while helping others grow.
+                </p>
+              </div>
+            </AnimatedSection>
+
+            {/* Highlight Cards */}
+            <AnimatedSection delay={200}>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-10">
+                {highlights.map((item) => (
+                  <div key={item.label} className="gradient-border px-4 py-5 text-center card-hover card-shine">
+                    <div className="text-xl font-bold gradient-text">{item.value}</div>
+                    <div className="eyebrow text-[0.62rem] text-stone-500 mt-2">{item.label}</div>
                   </div>
-                  <div className="text-xs text-zinc-500 mt-0.5">
-                    {item.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </AnimatedSection>
+                ))}
+              </div>
+            </AnimatedSection>
+          </div>
         </div>
+
+        {/* Photo strip */}
+        <AnimatedSection delay={150}>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-16">
+            {campusPhotos.map((photo, idx) => (
+              // Neighbouring photos drift in opposite directions on scroll
+              <Parallax key={photo.src} amount={idx % 2 === 0 ? 12 : -12}>
+                <div className="group relative aspect-[3/4] rounded-2xl overflow-hidden border border-gold-500/15 bg-stone-900">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 640px) 45vw, 260px"
+                    className="object-cover grayscale-[55%] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent transition-opacity duration-500 group-hover:opacity-40 pointer-events-none" />
+                </div>
+              </Parallax>
+            ))}
+          </div>
+          <p className="eyebrow text-[0.62rem] text-stone-500 mt-4 text-center">
+            On campus — FAST NUCES, Karachi
+          </p>
+        </AnimatedSection>
       </div>
 
       {/* Animated glowing separator */}
